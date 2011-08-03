@@ -1,0 +1,69 @@
+#include "{{INCLUDE_FILE}}"
+#include "{{BASE_PATH}}/axes_macro.inc"
+#include "math.inc"
+#include "finish.inc"
+#include "transforms.inc"
+
+
+background {color rgb 1}
+
+light_source {
+        <-10,-45,200> 
+        rgb 1
+        shadowless        
+}
+
+global_settings {
+  assumed_gamma 2
+}
+
+camera {
+        orthographic
+        location <0,200,0>
+        rotate <23,0,-135>
+        look_at <0,0,0>
+}
+
+sky_sphere
+{
+	pigment
+	{
+		gradient y
+		color_map
+		{
+			[0.0 rgb <1.0,1.0,1.0>]		//153, 178.5, 255	//150, 240, 192
+			[0.7 rgb <0.9,0.9,0.9>]		//  0,  25.5, 204	//155, 240, 96
+		}
+		scale 2
+		translate 1
+	}
+}
+
+
+
+object {
+  {{MODELNAME}}
+  texture {
+    pigment {color <1,.33,0>}
+    finish {phong 0.0}
+  }
+}
+
+// the coordinate grid and axes
+Axes_Macro
+(
+	100,	// Axes_axesSize,	The distance from the origin to one of the grid's edges.	(float)
+	500/1,	// Axes_majUnit,	The size of each large-unit square.	(float)
+	100,	// Axes_minUnit,	The number of small-unit squares that make up a large-unit square.	(integer)
+	0.01,	// Axes_thickRatio,	The thickness of the grid lines (as a factor of axesSize).	(float)
+	on,	// Axes_aBool,		Turns the axes on/off. (boolian)
+	on,	// Axes_mBool,		Turns the minor units on/off. (boolian)
+	off,	// Axes_xBool,		Turns the plane perpendicular to the x-axis on/off.	(boolian)
+	off,	// Axes_yBool,		Turns the plane perpendicular to the y-axis on/off.	(boolian)
+	on	// Axes_zBool,		Turns the plane perpendicular to the z-axis on/off.	(boolian)
+)
+
+object
+{
+	Axes_Object
+}
