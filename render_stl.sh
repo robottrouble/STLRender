@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STL=$1
-TMP=$2
+TMP=`mktemp -d`
 START_DIR=`dirname $0`
 BASEFILE=`echo "$STL" | sed -e 's/\.stl//g'`
 OUTFILE=${BASEFILE}.png
@@ -15,4 +15,7 @@ cat ${START_DIR}/pov_layout.tmpl | sed -e "s@{{INCLUDE_FILE}}@${INCFILE}@g" -e "
 	   
 # cat "${POVFILE}"
 povray -s -i"${POVFILE}" +FN +W1600 +H1200 -o"${OUTFILE}" +Q9 +AM2 +A2
+
+#cleanup
+rm -rf ${TMP}
 echo "OUTFILE: ${OUTFILE}"
